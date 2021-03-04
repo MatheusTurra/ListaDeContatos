@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MatheusTurra/ContactList/issues"
   },
-  "homepage": "https://github.com/MatheusTurra/ContactList#readme"
+  "homepage": "https://github.com/MatheusTurra/ContactList#readme",
+  "dependencies": {
+    "express": "^4.8.8"
+  }
 }
