@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const home = require("../app/routes/home");
-const contato = require("../app/routes/contato");
+//const home = require("../app/routes/home");
+//const contato = require("../app/routes/contato");
 
 module.exports = () => {
     const app = express();
@@ -15,8 +15,8 @@ module.exports = () => {
     app.use(bodyParser.json);
     app.use(require("method-override")());
 
-    home(app);
-    contato(app);
+  //  home(app);
+  //  contato(app);
 
     return app;
 }
