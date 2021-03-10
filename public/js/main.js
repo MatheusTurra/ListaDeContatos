@@ -1,6 +1,7 @@
 angular.module("contactList", ["ngRoute"])
-    .config(($routeProvider => {
-        $routeProvider.when("/contatos", {
-            templateUrl: "../partials//contatos.js",
-        });
-    }));
+  .config(function($routeProvider) {
+    $routeProvider.when("/contatos", {
+        templateUrl: "partials/contatos.html",
+        controller: "ContatosController"
+    });
+  });
