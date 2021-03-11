@@ -1,7 +1,15 @@
 angular.module("contactList", ["ngRoute"])
   .config(function($routeProvider) {
+    
     $routeProvider.when("/contatos", {
-        templateUrl: "partials/contatos.html",
-        controller: "ContatosController"
+      templateUrl: "partials/contatos.html",
+      controller: "ContatosController"
     });
+
+    $routeProvider.when("/contatos/:contatoId", {
+      templateUrl: "partials/contato.html",
+      controller: "ContatoController"
+    });
+
+    $routeProvider.otherwise({redirectTo: "/contatos"});
   });
