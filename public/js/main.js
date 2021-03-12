@@ -1,4 +1,4 @@
-angular.module("contactList", ["ngRoute"])
+angular.module("contactList", ["ngRoute", "ngResource"])
   .config(function($routeProvider) {
     
     $routeProvider.when("/contatos", {

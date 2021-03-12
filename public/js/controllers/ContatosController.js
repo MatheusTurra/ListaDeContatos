@@ -1,29 +1,23 @@
 angular.module("contactList").controller("ContatosController",
-    function($scope) {
-        $scope.total = 1000;
+    function($scope, $resource) {
         
-        $scope.incrementa = function() {
-            $scope.total ++;
+        $scope.contatos = [];
+        $scope.filtro = "";
+
+        const Contato = $resource("/contatos/:id");
+
+        function buscaContatos() {
+            Contato.query(
+                function(contatos) {
+                    $scope.contatos = contatos;
+                },
+                function(erro) {
+                    console.log("não foi possivel ober a lista de contatos");
+                    console.log(erro)
+                }
+            );
         }
 
-        $scope.contatos = [
-            {
-                "_id": 1,
-                "nome": "Contato 1",
-                "email": "cont1@empresa.com.br"
-            },
-            {
-                "_id":  2,
-                "nome": "Contato 2",
-                "email": "cont2@empresa.com.br"
-            },
-            {
-                "_id": 3,
-                "nome": "Contato 3",
-                "email": "cont3@empresa.com.br"
-            }
-        ]
-
-        $scope.filtro = " ";
+        buscaContatos();
     }
 );
