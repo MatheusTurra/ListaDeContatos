@@ -1,10 +1,9 @@
-const contatos = [
+let contatos = [
     {_id: 1, nome: "teste132"},
     {_id: 2, nome: "teste2"},
     {_id: 3, nome: "teste3"},
     {_id: 4, nome: "teste4"},
-
-]
+];
 
 module.exports = () => {
     const controller = {};
@@ -25,9 +24,8 @@ module.exports = () => {
 
     controller.removeContato = (req, res) => {
         const idContato = req.params.id;
-        
         contatos = contatos.filter(contato => {
-            return contato._id !== idContato;
+            return contato._id != idContato;
         });
         
         res.status(204).end();
