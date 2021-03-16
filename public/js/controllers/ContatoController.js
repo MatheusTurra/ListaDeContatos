@@ -19,8 +19,8 @@ angular.module("contactList").controller("ContatoController",
         }
 
         $scope.salva = function() {
-            $scope.contato.$save().
-            then(function() {
+            $scope.contato.$save()
+            .then(function() {
                 $scope.mensagem = {texto: "Salvo com sucesso"};
                 $scope.contato = new Contato();
             })
