@@ -1,11 +1,9 @@
 angular.module("contactList").controller("ContatosController",
-    function($scope, $resource) {
+    function($scope, Contato) {
         
         $scope.contatos = [];
         $scope.filtro = "";
         $scope.mensagem = {texto: ""};
-
-        const Contato = $resource("/contatos/:id");
 
         function buscaContatos() {
             Contato.query(

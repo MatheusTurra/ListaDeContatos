@@ -1,6 +1,5 @@
 angular.module("contactList").controller("ContatoController", 
-    function($scope, $routeParams, $resource) {
-        const Contato = $resource("/contatos/:id");
+    function($scope, $routeParams, Contato) {
 
         if ($routeParams.contatoId) {
             Contato.get({id: $routeParams.contatoId},
@@ -8,15 +7,26 @@ angular.module("contactList").controller("ContatoController",
                     $scope.contato = contato;
                 },
                 function(erro) {
-                    $scope.mensgem = {
+                    $scope.mensagem = {
                         texto: "Não foi possível obter o contato"
                     }
     
                     console.log(erro);
-                }    
+                }
             );
         } else {
-            $scope.contato = {};
+            $scope.contato = new Contato();
+        }
+
+        $scope.salva = function() {
+            $scope.contato.$save().
+            then(function() {
+                $scope.mensagem = {texto: "Salvo com sucesso"};
+                $scope.contato = new Contato();
+            })
+            .catch(function(erro) {
+                $scope.mensgem = {texto: "Não foi possível salvar"}
+            });        
         }
     }
 );

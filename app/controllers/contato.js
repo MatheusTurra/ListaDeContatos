@@ -5,6 +5,9 @@ let contatos = [
     {_id: 4, nome: "teste4"},
 ];
 
+
+let ID_CONTATO_INC = 5;
+
 module.exports = () => {
     const controller = {};
 
@@ -30,6 +33,32 @@ module.exports = () => {
         
         res.status(204).end();
     };
+
+    controller.salvaContato = (req, res) => {
+        let contato = req.body;
+        contato = contato._id ? 
+            atualiza(contato) :
+            adiciona(contato);
+        res.json(contato);
+    }
+
+    function adiciona(contatoNovo) {
+        contatoNovo._id = ++ID_CONTATO_INC;
+        contatos.push(contatoNovo);
+        return contatoNovo;
+    }
+
+
+    function atualiza(contatoAlterar) {
+        contatos = contatos.map(contato => {
+            if (contato._id == contatoAlterar._id) {
+                contato = contatoAlterar;
+            }
+            return contato
+        });
+
+        return contatoAlterar;
+    }
 
     return controller;
 }
