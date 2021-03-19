@@ -12,6 +12,10 @@ module.exports = () => {
             index: {
                 unique: true
             }
+        },
+        emergencia: {
+            type: Mongoose.Schema.ObjectId,
+            ref: "Contato"
         }
     });
 

@@ -1,63 +1,78 @@
-let contatos = [
-    {_id: 1, nome: "teste132"},
-    {_id: 2, nome: "teste2"},
-    {_id: 3, nome: "teste3"},
-    {_id: 4, nome: "teste4"},
-];
-
-
-let ID_CONTATO_INC = 5;
+const Contato = require("../models/contato")();
 
 module.exports = () => {
     const controller = {};
 
     controller.listaContatos = (req, res) => {
-        res.json(contatos);
+        Contato.find().populate("emergencia").exec()
+        .then(
+            contatos => {
+                res.json(contatos);    
+            },
+            erro => {
+                res.status(500).json(erro);
+            }
+        );
     }
 
     controller.obtemContato = (req, res) => {
-        const idContato = req.params.id;
+        const _id = req.params.id;
 
-        const contato = contatos.filter(contato => {
-            return contato._id == idContato;
-        })[0];
+        Contato.findById(_id).exec()
+        .then(
+            contato => {
+                if (!contato) throw new Error("Contato não encontrado");
+                res.json(contato);
+            },
+            erro => {
+                console.log(erro);
+                res.status(404).json(erro);
+            }
+        );
 
-        contato ? res.json(contato) : res.status(404).send("contato não encontrado")
     }
 
     controller.removeContato = (req, res) => {
-        const idContato = req.params.id;
-        contatos = contatos.filter(contato => {
-            return contato._id != idContato;
-        });
-        
-        res.status(204).end();
+        const _id = req.params.id;
+        Contato.remove({"_id": _id}).exec()
+        .then(
+            () => {
+                res.status(204).end();
+            },
+            erro => {
+                return console.error(erro);
+            }
+        );
     };
 
     controller.salvaContato = (req, res) => {
-        let contato = req.body;
-        contato = contato._id ? 
-            atualiza(contato) :
-            adiciona(contato);
-        res.json(contato);
-    }
+        const _id = req.body._id;
 
-    function adiciona(contatoNovo) {
-        contatoNovo._id = ++ID_CONTATO_INC;
-        contatos.push(contatoNovo);
-        return contatoNovo;
-    }
+        req.body.emergencia = req.body.emergencia || null;
 
-
-    function atualiza(contatoAlterar) {
-        contatos = contatos.map(contato => {
-            if (contato._id == contatoAlterar._id) {
-                contato = contatoAlterar;
-            }
-            return contato
-        });
-
-        return contatoAlterar;
+        if(_id) {
+            Contato.findByIdAndUpdate(_id, req.body).exec()
+            .then(
+                contato => {
+                    res.json(contato);
+                },
+                erro => {
+                    console.error(erro);
+                    res.status(500).json(erro)
+                }
+            );
+        } else {
+            Contato.create(req.body)
+            .then(
+                contato => {
+                    res.status(201).json(contato);
+                },
+                erro => {
+                    console.log(erro);
+                    res.status(500).json(erro);
+                }
+            );
+        }
     }
 
     return controller;
