@@ -1,4 +1,5 @@
 const Contato = require("../models/contato")();
+const sanitize = require("mongo-sanitize");
 
 module.exports = () => {
     const controller = {};
@@ -33,7 +34,8 @@ module.exports = () => {
     }
 
     controller.removeContato = (req, res) => {
-        const _id = req.params.id;
+        const _id = sanitize(req.params.id);
+
         Contato.remove({"_id": _id}).exec()
         .then(
             () => {
@@ -48,10 +50,14 @@ module.exports = () => {
     controller.salvaContato = (req, res) => {
         const _id = req.body._id;
 
-        req.body.emergencia = req.body.emergencia || null;
+        const dados = {
+        "nome": req.body.nome,
+        "email": req.body.email,
+        "emergencia": req.body.emergencia = req.body.emergencia || null 
+        }
 
         if(_id) {
-            Contato.findByIdAndUpdate(_id, req.body).exec()
+            Contato.findByIdAndUpdate(_id, dados).exec()
             .then(
                 contato => {
                     res.json(contato);
@@ -62,7 +68,7 @@ module.exports = () => {
                 }
             );
         } else {
-            Contato.create(req.body)
+            Contato.create(dados)
             .then(
                 contato => {
                     res.status(201).json(contato);

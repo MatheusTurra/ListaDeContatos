@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const contato = require("../app/routes/contato");
+const helmet = require("helmet");
 
 module.exports = () => {
     const app = express();
@@ -13,6 +14,12 @@ module.exports = () => {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
     app.use(require("method-override")());
+    
+    app.use(helmet());
+    app.use(helmet.xframe());
+    app.use(helmet.xssFilter());
+    app.use(helmet.nosniff());
+    app.disable("x-powered-by");
 
     contato(app);
 
