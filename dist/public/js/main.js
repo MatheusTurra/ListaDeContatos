@@ -1,5 +1,5 @@
 angular.module("contactList", ["ngRoute", "ngResource"])
-  .config(function($routeProvider) {
+  .config(["$routeProvider", function($routeProvider) {
     
     $routeProvider.when("/contatos", {
       templateUrl: "partials/contatos.html",
@@ -17,4 +17,4 @@ angular.module("contactList", ["ngRoute", "ngResource"])
     });
 
     $routeProvider.otherwise({redirectTo: "/contatos"});
-  });
+  }]);

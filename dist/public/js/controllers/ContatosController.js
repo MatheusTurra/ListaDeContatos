@@ -1,5 +1,5 @@
 angular.module("contactList").controller("ContatosController",
-    function($scope, Contato) {
+    ["$scope", "Contato", function($scope, Contato) {
         
         $scope.contatos = [];
         $scope.filtro = "";
@@ -32,5 +32,5 @@ angular.module("contactList").controller("ContatosController",
                 }
             );
         }
-    }
+    }]
 );

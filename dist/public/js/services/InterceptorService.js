@@ -1,6 +1,6 @@
 angular.module("contactList")
     .factory("Interceptor",
-    function($location, $q) {
+    ["$location", "$q", function($location, $q) {
         const interceptor = {
             responseError: function(resposta) {
                 if (resposta.status == 401) {
@@ -11,4 +11,4 @@ angular.module("contactList")
         }
         
         return interceptor;
-    });
+    }]);

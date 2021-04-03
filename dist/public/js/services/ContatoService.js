@@ -1,3 +1,3 @@
-angular.module("contactList").factory("Contato", function($resource) {
+angular.module("contactList").factory("Contato", ["$resource", function($resource) {
     return $resource("/contatos/:id");
-});
+}]);
