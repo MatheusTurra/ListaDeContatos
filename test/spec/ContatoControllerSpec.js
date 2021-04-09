@@ -3,8 +3,11 @@ describe("ContatoController", function() {
 
 	beforeEach(function() {
 		module('contactList');
-		inject(function($injector){
+		inject(function($injector, _$httpBackend_){
 			$scope = $injector.get('$rootScope').$new();
+			$httpBackend = _$httpBackend_;
+			$httpBackend.when("GET", "/contatos/1").respond({_id: "1"});
+			$httpBackend.when("GET", "/contatos").respond([{}]);
 		});
 	});
 
@@ -15,5 +18,15 @@ describe("ContatoController", function() {
 			});
 			expect($scope.contato._id).toBeUndefined();
 	}));
+
+	it("Deve preencher o Contato quando o parâmetro de rota for passado",
+		inject(function($controller) {
+			$controller("ContatoController", {
+				"$routeParams": {contatoId: 1},
+				"$scope": $scope
+			});
+			$httpBackend.flush();
+			expect($scope.contato._id).toBeDefined();
+		}));
 
 });
