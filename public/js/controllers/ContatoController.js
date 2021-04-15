@@ -25,7 +25,7 @@ angular.module("contactList").controller("ContatoController",
                 $scope.contato = new Contato();
             })
             .catch(function(erro) {
-                $scope.mensgem = {texto: "Não foi possível salvar"}
+                $scope.mensagem = {texto: "Não foi possível salvar"}
             });        
         }
 
