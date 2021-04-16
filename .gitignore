@@ -1,4 +1,9 @@
+.tmp
+.DS_Store
+.DS_Store?
 node_modules/
 bower_components/
 public/vendor/
+dist/
+scripts/
 consulta.js
