@@ -4,11 +4,12 @@
   "description": "Contact list using MEAN stack",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server"
+    "start": "bower install && node server.js",
+    "bower": "bower install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MatheusTurra/ContactList.git"
+    "url": "git+https://github.com/MatheusTurra/Lista-de-contatos.git"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/MatheusTurra/ContactList#readme",
   "dependencies": {
     "body-parser": "^1.6.7",
+    "bower": "^1.3.12",
     "ejs": "^0.8.8",
     "express": "^4.8.4",
     "global": "^4.4.0",
