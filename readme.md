@@ -1,5 +1,5 @@
 <h1 align="center">
-    **Lista de Contatos**
+    Lista de Contatos
 </h1>
 <img src="./demo/demonstration.gif"/>
 </br>
